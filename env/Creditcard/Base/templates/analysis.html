@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{message}}</h1>
+    <h2>Results from Random classifier imported:</h2>
+    <p>accuracy:{{accuracy}}</p><br>
+    <p>precision_class_0:{{precision_class_0}}</p><br>
+    <p>recall_class_0:{{recall_class_0}}</p><br>
+    <p>f1_class_0:{{f1_class_0}}</p><br>
+    <p>precision_class_1:{{precision_class_1}}</p><br>
+    <p>recall_class_1:{{recall_class_1}}</p><br>
+    <p>f1_class_1:{{f1_class_1}}</p><br>
+
+<button onclick=Dashboard()>Return to dashboard</button>   
+<script>
+    function Dashboard(){
+        window.location.href="/Userlog/";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Click on the "Choose File" button to upload a file:</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="myFile" name="file">
+        <input type="submit" value="Display" required>
+    </form>
+    <button id="display" value="{% url 'train_user' %}"  onclick="trainUser()">Train the data</button>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for column in dataframe.columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in dataframe.iterrows %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+         function trainUser() {
+                window.location.href = "{% url 'train_user' %}";
+            }
+    </script>
+</body>
+</html>

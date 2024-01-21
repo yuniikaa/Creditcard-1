@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #test{
+            position: relative;
+            left:500px;
+
+        }
+    </style>
+</head>
+<body>
+   <h1>Training the Data</h1><br>
+   <p>Click on the "Choose File" button to Test:</p>
+   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="myFile" name="testfile">
+    <input type="submit" value="Display">
+</form>
+ <a href="{% url 'analytic' %}"> analyze data</a> <br>
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in dataframe.columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in dataframe.iterrows %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+   #test_button {
+    /* Add your styling rules here */
+    color: black;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+}
+    </style>
+</head>
+<body>
+    Traning data
+    <h1 id="heading">{{train_check}}</h1>
+    <div id="button_section"></div>
+<script>
+    let data=document.getElementById("heading")
+    while(data.innerHTML!=="True"){
+        alert("training data");
+    }
+    let button = document.createElement("button");
+    button.id="test_button"
+    console.log(button);
+    button.innerHTML="click here to test";
+    document.getElementById("button_section").appendChild(button);
+    button.onclick=function(){
+    window.location.href='/Userlog/';
+    }
+
+</script>
+</body>
+</html>
