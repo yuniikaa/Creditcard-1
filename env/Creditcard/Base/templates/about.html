@@ -4,10 +4,90 @@
     <title>
       AboutProject
     </title>
-    <link rel="stylesheet" href="styleus.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    <style>
+      *{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', Sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.about{
+    width: 100%;
+    padding: 78px 0px;
+}
+
+.about img{
+    height: 550px;
+    width: 520px;
+    justify-content: center;
+    box-shadow: 0 0 30px #081823;
+}
+
+.about-text{
+    width: 550px;
+}
+
+.main{
+    width: 1130px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.about-text h1{
+    color: white;
+    font-size: 50px;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+.about-text h5{
+    color: white;
+    font-size: 25px;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.about-text p{
+    color: aliceblue;
+    letter-spacing: 1px;
+    line-height: 28px;
+    font-size: 18px;
+    margin-bottom: 45px;
+}
+
+button{
+    background: #162938;
+    color: #03e9f4;
+    text-decoration: none;
+    border: 2px solid #03e9f4;
+    font-weight: bold;
+    padding: 13px 30px;
+    border-radius: 30px;
+    transition: 0.4s;
+    box-shadow: 0 0 30px #081823;
+}
+
+button:hover{
+    background: #03e9f4;
+    color: white;
+    border: 2px solid #03e9f4;
+    cursor: pointer;
+    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4 ;
+}
+
+    </style>
   </head>
 
   <body>
@@ -17,7 +97,7 @@
         <div class="about-text">
           <h1>ABOUT PROJECT</h1>
           <h5>Credit Card Fraud Detection </h5>
-          <p>Lorem Ispum : To save his mother, a kind-hearted boy and his tiny daemon friend set out on a journey across post-apocalyptic Japan as dark forces close in.: To save his mother, a kind-hearted boy and his tiny daemon friend set out on a journey acrofriend set out on a journey across post-apocalyptic Japan as dark forces close in.: To save his mother, a kind-hearted boy and his tiny daemon friend set out on a journey across post-apocalyptic Japan as dark forces close in</p>
+          <p>The Credit Card Fraud Detection System utilizes predictive models to automatically identify fraudulent patterns and assign risk scores, employing the Random Forest Classifier algorithm to discern the authenticity of transactions. This approach contributes to the accurate differentiation between legitimate and suspicious transactions. The system is designed to enhance efficiency and precision in fraud detection, relying on advanced algorithms for real-time analysis.</p>
           <a href="{% url 'login' %}"><button type="button">GET STARTED</button></a>
         </div>
       </div>

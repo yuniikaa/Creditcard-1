@@ -21,7 +21,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(background.jpg) no-repeat;
+    background-image: url("{% static 'cc6.png' %}");
     background-size: cover;
 }
 
@@ -284,21 +284,21 @@ header {
         <nav class="navigation">
             <a href="#">Home</a>
             <a href="{% url 'about' %}">About</a>
-            <a href="#">Our Team</a>
+            <a href="{% url 'ourteam' %}">Our Team</a>
             <button onclick="redirectToAnotherPage()" class="btnLogin-popup">Login</button></a>
         </nav>
     </header>
 
 
     <script>
-        const btnPopup = document.querySelector('.btnLogin-popup');
+         const btnPopup = document.querySelector('.btnLogin-popup');
 
-        btnPopup.addEventListener('click', () => {
-            wrapper.classList.add('active-popup');
-        });
-        function redirectToAnotherPage() {
-            window.location.href = "{% url 'login' %}";
-        }
+btnPopup.addEventListener('click', () => {
+    wrapper.classList.add('active-popup');
+});
+function redirectToAnotherPage() {
+    window.location.href = "{% url 'login' %}";
+}
     </script>
 </body>
 

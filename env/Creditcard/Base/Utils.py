@@ -8,6 +8,8 @@ from geopy.geocoders import Nominatim
 from .models import *
 
 from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 
 
 def random_forest_classifer():
@@ -163,9 +165,9 @@ def random_forest_classifer():
             tree_ls.append(tree)
         return tree_ls
 
-    n_estimators = 50
+    n_estimators = 100
     max_features = 3
-    max_depth = 10
+    max_depth = 40
     min_samples_split = 2
 
     model = random_forest(
@@ -219,17 +221,21 @@ def testing_classifier(stored_model):
     preds = predict_rf(clf, X_test)
     print(preds)
     precision, recall, f1, _ = precision_recall_fscore_support(
-        y_test, preds, average=None
+        y_test, preds, average=None, zero_division=1
     )
-    # accuracy = accuracy_score(y_test, preds)
-    # print("Accuracy:", accuracy)
+    accuracy = accuracy_score(y_test, preds)
+    print("Accuracy:", accuracy)
 
     precision_class_0 = precision[0]
     recall_class_0 = recall[0]
     f1_class_0 = f1[0]
+
     precision_class_1 = precision[1]
     recall_class_1 = recall[1]
     f1_class_1 = f1[1]
+    print("precision_Class_0", precision_class_0)
+    print("recall class 0", recall_class_0)
+    print("f1_Class_0", f1_class_0)
     print("precision_Class_1", precision_class_1)
     print("recall class 1", recall_class_1)
     print("f1_Class_1", f1_class_1)
@@ -242,21 +248,73 @@ def testing_classifier(stored_model):
     analysis.recall_class_1 = recall_class_1
     analysis.f1_class_1 = f1_class_1
     analysis.save()
+    conf_matrix = confusion_matrix(y_test, preds)
+    confusion_matrix_instance = ConfusionMatrix(
+        true_positive=conf_matrix[1, 1],
+        true_negative=conf_matrix[0, 0],
+        false_positive=conf_matrix[0, 1],
+        false_negative=conf_matrix[1, 0],
+    )
+    confusion_matrix_instance.save()
+    return True
+    # print(conf_matrix)
 
 
-def calculating_distance():
+def calculating_distance(args1,args2):
     loc = Nominatim(user_agent="Geopy Library", timeout=None)
-    location1 = "dhalkhu,kahtmandu,nepal"
-    location2 = "jhamsikhel,lalitpur,nepal"
-    getLoc1 = loc.geocode(location1)
-    getLoc2 = loc.geocode(location2)
-    print(getLoc1.address)
-    print(getLoc2.address)
-    print("Latitude 1 = ", getLoc1.latitude, "\n")
-    print("Longitude 1 = ", getLoc1.longitude)
-    print("Latitude 2 = ", getLoc2.latitude, "\n")
-    print("Longitude 2 = ", getLoc2.longitude)
-    latitudinal_distance = abs(round(getLoc1.latitude - getLoc2.latitude, 3)) / 10
-    longitudinal_distance = abs(round(getLoc1.longitude - getLoc2.longitude, 3)) / 10
-    print(latitudinal_distance)
-    print(longitudinal_distance)
+    getLoc1 = loc.geocode(args1)
+    getLoc2 = loc.geocode(args2)
+    if not getLoc1 or not getLoc2:
+        return 
+    else:
+        print(getLoc1.address)
+        print(getLoc2.address)
+        print("Latitude 1 = ", getLoc1.latitude, "\n")
+        print("Longitude 1 = ", getLoc1.longitude)
+        print("Latitude 2 = ", getLoc2.latitude, "\n")
+        print("Longitude 2 = ", getLoc2.longitude)
+        latitudinal_distance = abs(round(getLoc1.latitude - getLoc2.latitude, 3)) / 10
+        longitudinal_distance = abs(round(getLoc1.longitude - getLoc2.longitude, 3)) / 10
+        print(latitudinal_distance)
+        print(longitudinal_distance)
+        distance=Train_data()
+        distance.Lat_Distance=latitudinal_distance
+        distance.Long_Distance=longitudinal_distance
+        distance.save()
+
+def testing_manual(stored_model,df):
+    clf = stored_model.model
+    if clf is not None:
+        clf = stored_model.model
+        X_test = df
+        print(X_test)
+        def predict_tree(tree, X_test):
+            feature_idx = tree["feature_idx"]
+            split_point = tree["split_point"]
+
+            print("Feature Index:", feature_idx)
+            print("Split Point:", split_point)
+            print("Test Value:", X_test[feature_idx])
+
+            if X_test[feature_idx] <= split_point:
+                if type(tree["left_split"]) == dict:
+                    return predict_tree(tree["left_split"], X_test)
+                else:
+                    value = tree["left_split"]
+                    return value
+            else:
+                if type(tree["right_split"]) == dict:
+                    return predict_tree(tree["right_split"], X_test)
+                else:
+                    return tree["right_split"]
+
+    def predict_rf(tree_ls, X_test):
+        pred_ls = list()
+        for i in range(len(X_test)):
+            ensemble_preds = [predict_tree(tree, X_test.values[i]) for tree in tree_ls]
+            final_pred = max(ensemble_preds, key=ensemble_preds.count)
+            pred_ls.append(final_pred)
+        return np.array(pred_ls)
+
+    preds = predict_rf(clf, X_test)
+    return preds

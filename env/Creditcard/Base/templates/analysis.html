@@ -4,19 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        * {
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #243b55;
+    align-items: center;
+}
+
+
+
+h1{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+h2{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    margin-left: auto;
+  margin-right: auto;
+}
+
+.content-table thead tr {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  color: #ffffff;
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #355d79;
+}
+
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    width: auto;
+    height: 50px;
+    background: #162938;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #03e9f4;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    padding: 10px;
+    margin: 0 auto; 
+    display: block;
+}
+.btn:hover{
+    background: #03e9f4;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4 ;
+}
+
+    </style>
 </head>
 <body>
     <h1>{{message}}</h1>
     <h2>Results from Random classifier imported:</h2>
-    <p>accuracy:{{accuracy}}</p><br>
-    <p>precision_class_0:{{precision_class_0}}</p><br>
-    <p>recall_class_0:{{recall_class_0}}</p><br>
-    <p>f1_class_0:{{f1_class_0}}</p><br>
-    <p>precision_class_1:{{precision_class_1}}</p><br>
-    <p>recall_class_1:{{recall_class_1}}</p><br>
-    <p>f1_class_1:{{f1_class_1}}</p><br>
+    <div>
+        <table border="1" class="content-table">
+        <thead>
+            <tr>
+                <th>
+                    Values
+                </th>
+                    <th>
+                        Results
+                    </th>
+                
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>accuracy:</td>
+                    <td>{{accuracy}}</td>
+                </tr>
 
-<button onclick=Dashboard()>Return to dashboard</button>   
+                <tr>
+                    <td>precision_class_0:</td>
+                    <td>{{precision_class_0}}</td>
+                </tr>
+
+                <tr>
+                    <td>recall_class_0:</td>
+                    <td>{{recall_class_0}}</td>
+                </tr>
+
+                <tr>
+                    <td>f1_class_0:</td>
+                    <td>{{f1_class_0}}</td>
+                </tr>
+
+                <tr>
+                    <td>precision_class_1:</td>
+                    <td>{{precision_class_1}}</td>
+                </tr>
+
+                <tr>
+                    <td>recall_class_1:</td>
+                    <td>{{recall_class_1}}</td>
+                </tr>
+
+                <tr>
+                    <td>f1_class_1:</td>
+                    <td>{{f1_class_1}}</td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+
+            <h1>Confusion Matrix</h1>
+
+        <table border="1" class="content-table">
+            <tr>
+                <th></th>
+                <th>True Positive</th>
+                <th>True Negative</th>
+                <th>False Positive</th>
+                <th>False Negative</th>
+            </tr>
+            <tr>
+                <th>Actual Positive</th>
+                <td>{{ saved_conf_matrix.true_positive }}</td>
+                <td>{{ saved_conf_matrix.true_negative }}</td>
+                <td>{{ saved_conf_matrix.false_positive }}</td>
+                <td>{{ saved_conf_matrix.false_negative }}</td>
+            </tr>
+        </table>
+    
+
+<button onclick=Dashboard() class="btn">Return to Dashboard</button>   <br>
 <script>
     function Dashboard(){
         window.location.href="/Userlog/";

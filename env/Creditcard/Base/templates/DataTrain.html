@@ -137,45 +137,40 @@
         main {
             margin-left: 120px;
         }
+
     </style>
 </head>
 
 <body>
     <aside class="sidebar">
         <div class="logo">
-            <h2>Hello {{request.user}}</h2>
+            <h2 id="header">Hello {{request.user}}</h2>
         </div>
         <ul class="links">
             <h4>Main Menu</h4>
-            <li>
-                <span class="material-symbols-outlined">dashboard</span>
-                <a href="#">Dashboard</a>
-            </li>
+           
             <li>
                 <span class="material-symbols-outlined">show_chart</span>
-                <a href="#">Import Data For Data Train</a>
+                <a href="{% url  'Datatrain' %}">Import Data For Data Train</a>
             </li>
             <li>
                 <span class="material-symbols-outlined">flag</span>
-                <a href="#">Reports</a>
+                <a href="{% url 'Testdata' %}" >Test the data</a>
             </li>
             <hr>
             <li>
                 <span class="material-symbols-outlined">person</span>
-                <a href="#">Manually Enter Data</a>
-            </li>
-            <li>
-                <span class="material-symbols-outlined">pacemaker</span>
-                <a href="#">Theme Maker</a>
+                <a href="{% url 'manual_dataentry' %}" >Manually Enter Data</a>
             </li>
             <li>
                 <span class="material-symbols-outlined">monitoring</span>
-                <a href="#">Analytic</a>
+                <a href="{% url 'analytic' %}" >Analytic</a>
             </li>
+          
             <hr>
             <li class="logout-link">
                 <span class="material-symbols-outlined">logout</span>
-                <a href="#">Logout</a>
+                <a href="{% url 'logout' %}" >Logout</a>
             </li>
         </ul>
     </aside>
@@ -185,7 +180,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" id="myFile" name="file">
-            <input type="submit" value="Display" required>
+            <input type="submit" value="Display">
         </form>
     <button id="display" onclick="window.location.href='Modeltrain/'" >Train the data</button>
 <div>

@@ -14,6 +14,15 @@ class analysisreport(models.Model):
     recall_class_1 = models.FloatField(null=True, blank=True)
     f1_class_1 = models.FloatField(null=True, blank=True)
 
+class evaluationMetrics(models.Model):
+    accuracy = models.FloatField(null=True, blank=True)
+    precision_class_0 = models.FloatField(null=True, blank=True)
+    recall_class_0 = models.FloatField(null=True, blank=True)
+    f1_class_0 = models.FloatField(null=True, blank=True)
+    precision_class_1 = models.FloatField(null=True, blank=True)
+    recall_class_1 = models.FloatField(null=True, blank=True)
+    f1_class_1 = models.FloatField(null=True, blank=True)
+
 
 class StoredModel(models.Model):
     serialized_model = models.BinaryField()
@@ -63,3 +72,9 @@ class TestFile(models.Model):
 
 class SingleTrainFile(models.Model):
     file = models.FileField(upload_to="Singlefiles")
+
+class ConfusionMatrix(models.Model):
+    true_positive = models.IntegerField()
+    true_negative = models.IntegerField()
+    false_positive = models.IntegerField()
+    false_negative = models.IntegerField()
